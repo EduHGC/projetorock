@@ -81,13 +81,19 @@ body * {
   left: 0;
   z-index: 1;
   transform: translateY(-50%);
+
+  /*Aqui acontece o seguinte: Animation aplique a animação slide-dark quando #switch button for clicado. Quando é movimentado de 50% para 0 e termina a operação do slide-dark. Não precisa do forwards pelo fato de que a ultima propriedade declarada o left é 0, isso está loga acima de z-index.*/
+  animation: slide-dark 0.4s;
+
 }
 
 .light #switch button {
-  right: 0;
+  /*Aqui acontece o seguinte: Animation aplique a animação slide-light quando .light #switch button for clicado. Quando é movimentado de 0 para 50% e termina a operação do slide-light, o switch volta para 0 de novo, então é usado o atributo forwards, ou seja, permanceter em 50% declarado no "to"*/
+  animation: slide-light 0.4s forwards;
+}
 
-  /*Não entendi bem o porque, mas para button mudar de lado tem que inserir isso*/
-  left: initial;
+#switch button:hover{
+  outline: 8px solid var(--highlight-color);
 }
 
 /*switch*/
@@ -169,4 +175,28 @@ footer {
   .light {
     --bg-url: url(./assets/bg-desktop-light.jpg);
   }
+}
+
+/*Regra para aniações. Regra para fazer o switch deslizar mais lento quando mudar de dark para light*/
+@keyframes slide-light {
+  /*slide-in vá de 0*/
+  from{
+    left: 0;
+  }
+  /*Para 50%*/
+  to{
+    left: 50%;
+  }
+}
+
+@keyframes slide-dark {
+  /*slide-in vá de 0*/
+  from{
+    left: 50%;
+  }
+  /*Para 50%*/
+  to{
+    left: 0;
+  }
+
 }
